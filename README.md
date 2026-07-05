@@ -9,6 +9,8 @@ This project implements a `SequentialAgent` that orchestrates three `LlmAgent` a
 | Final Answer Agent | `LlmAgent` | Constructs a human-readable response with inline citations (`[P1]`, `[P2]`), grounding every claim in the retrieved evidence |
 | `root_agent` | `SequentialAgent` | Orchestrates the three `LlmAgent` agents above |
 
+![RAG agent pipeline](./rag_agent_flow.svg)
+
 ## Setup
 
 ### 1. Create the corpus and ingest data
@@ -38,3 +40,4 @@ adk run adk-rag-agent
 adk web
 ```
 Then select `adk-rag-agent` from the dropdown and start interrogating the agents.
+
