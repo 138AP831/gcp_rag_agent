@@ -1,0 +1,94 @@
+<svg viewBox="0 0 960 460" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+
+  <rect x="0" y="0" width="960" height="460" fill="#ffffff"/>
+
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 9 3, 0 6" fill="#5f5e5a"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="480" y="34" text-anchor="middle" font-size="20" font-weight="600" fill="#26215c">RAG Agent Pipeline</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#5f5e5a">root_agent (SequentialAgent) orchestrates three LlmAgents</text>
+
+  <!-- GCS / Corpus input node -->
+  <g>
+    <rect x="30" y="150" width="150" height="80" rx="12" fill="#e6f1fb" stroke="#378add" stroke-width="1.5"/>
+    <text x="105" y="182" text-anchor="middle" font-size="13" font-weight="600" fill="#042c53">GCS Bucket</text>
+    <text x="105" y="200" text-anchor="middle" font-size="12" fill="#0c447c">Vertex AI RAG</text>
+    <text x="105" y="216" text-anchor="middle" font-size="12" fill="#0c447c">Corpus</text>
+  </g>
+
+  <!-- Arrow: GCS -> Retriever -->
+  <path d="M180 190 L 250 190" stroke="#5f5e5a" stroke-width="2" fill="none" marker-end="url(#arrowhead)"
+        stroke-dasharray="6 6">
+    <animate attributeName="stroke-dashoffset" values="24;0" dur="1s" repeatCount="indefinite"/>
+  </path>
+
+  <!-- Sequential Agent bounding box -->
+  <rect x="250" y="90" width="620" height="220" rx="14" fill="none" stroke="#aca9ec" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="560" y="80" text-anchor="middle" font-size="13" font-weight="600" fill="#3c3489">root_agent (SequentialAgent)</text>
+
+  <!-- Retriever Agent -->
+  <g id="node-retriever">
+    <rect x="270" y="150" width="170" height="90" rx="12" fill="#eeedfe" stroke="#7f77dd" stroke-width="1.5">
+      <animate attributeName="fill" values="#eeedfe;#cecbf6;#eeedfe" keyTimes="0;0.5;1" dur="6s" begin="0s" repeatCount="indefinite"/>
+    </rect>
+    <text x="355" y="180" text-anchor="middle" font-size="13" font-weight="600" fill="#26215c">Retriever Agent</text>
+    <text x="355" y="198" text-anchor="middle" font-size="11" fill="#3c3489">LlmAgent</text>
+    <text x="355" y="216" text-anchor="middle" font-size="11" fill="#3c3489">fetches relevant</text>
+    <text x="355" y="230" text-anchor="middle" font-size="11" fill="#3c3489">passages</text>
+  </g>
+
+  <!-- Arrow: Retriever -> Analyzer -->
+  <path d="M440 195 L 500 195" stroke="#5f5e5a" stroke-width="2" fill="none" marker-end="url(#arrowhead)"
+        stroke-dasharray="6 6">
+    <animate attributeName="stroke-dashoffset" values="24;0" dur="1s" begin="2s" repeatCount="indefinite"/>
+  </path>
+
+  <!-- Analyzer Agent -->
+  <g id="node-analyzer">
+    <rect x="500" y="150" width="170" height="90" rx="12" fill="#e1f5ee" stroke="#1d9e75" stroke-width="1.5">
+      <animate attributeName="fill" values="#e1f5ee;#9fe1cb;#e1f5ee" keyTimes="0;0.5;1" dur="6s" begin="2s" repeatCount="indefinite"/>
+    </rect>
+    <text x="585" y="180" text-anchor="middle" font-size="13" font-weight="600" fill="#04342c">Analyzer Agent</text>
+    <text x="585" y="198" text-anchor="middle" font-size="11" fill="#0f6e56">LlmAgent</text>
+    <text x="585" y="216" text-anchor="middle" font-size="11" fill="#0f6e56">summarizes,</text>
+    <text x="585" y="230" text-anchor="middle" font-size="11" fill="#0f6e56">flags conflicts</text>
+  </g>
+
+  <!-- Arrow: Analyzer -> Final Answer -->
+  <path d="M670 195 L 730 195" stroke="#5f5e5a" stroke-width="2" fill="none" marker-end="url(#arrowhead)"
+        stroke-dasharray="6 6">
+    <animate attributeName="stroke-dashoffset" values="24;0" dur="1s" begin="4s" repeatCount="indefinite"/>
+  </path>
+
+  <!-- Final Answer Agent -->
+  <g id="node-final">
+    <rect x="730" y="150" width="120" height="90" rx="12" fill="#faece7" stroke="#d85a30" stroke-width="1.5">
+      <animate attributeName="fill" values="#faece7;#f5c4b3;#faece7" keyTimes="0;0.5;1" dur="6s" begin="4s" repeatCount="indefinite"/>
+    </rect>
+    <text x="790" y="180" text-anchor="middle" font-size="12" font-weight="600" fill="#4a1b0c">Final Answer</text>
+    <text x="790" y="198" text-anchor="middle" font-size="11" fill="#993c1d">LlmAgent</text>
+    <text x="790" y="216" text-anchor="middle" font-size="11" fill="#993c1d">cites [P1],</text>
+    <text x="790" y="230" text-anchor="middle" font-size="11" fill="#993c1d">[P2]...</text>
+  </g>
+
+  <!-- Arrow: Final Answer -> Output (down and left to output box) -->
+  <path d="M790 240 L 790 270 Q 790 280 780 280 L 220 280 Q 210 280 210 290 L 210 340" stroke="#5f5e5a" stroke-width="2" fill="none"
+        marker-end="url(#arrowhead)" stroke-dasharray="6 6">
+    <animate attributeName="stroke-dashoffset" values="60;0" dur="1.2s" begin="6s" repeatCount="indefinite"/>
+  </path>
+
+  <!-- Output node -->
+  <g id="node-output">
+    <rect x="110" y="345" width="220" height="80" rx="12" fill="#f1efe8" stroke="#888780" stroke-width="1.5">
+      <animate attributeName="stroke" values="#888780;#639922;#888780" keyTimes="0;0.5;1" dur="6s" begin="6s" repeatCount="indefinite"/>
+    </rect>
+    <text x="220" y="375" text-anchor="middle" font-size="13" font-weight="600" fill="#2c2c2a">Grounded response</text>
+    <text x="220" y="393" text-anchor="middle" font-size="11" fill="#5f5e5a">with inline citations</text>
+    <text x="220" y="409" text-anchor="middle" font-size="11" fill="#5f5e5a">returned to user</text>
+  </g>
+
+</svg>
